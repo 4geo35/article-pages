@@ -1,3 +1,8 @@
 <?php
 
-return [];
+return [
+    // Admin
+    // Articles
+    "customArticleModel" => null,
+    "customArticleIndexComponent" => null,
+];
