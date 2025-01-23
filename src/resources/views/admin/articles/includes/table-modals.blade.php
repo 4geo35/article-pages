@@ -3,6 +3,36 @@
     <x-slot name="text">{{ __("It will be impossible to restore the article!") }}</x-slot>
 </x-tt::modal.confirm>
 
+<x-tt::modal.dialog wire:model="displayPublish">
+    <x-slot name="title">
+        {{ __("Publish article") }}
+    </x-slot>
+    <x-slot name="content">
+        <form wire:submit.prevent="setPublish" class="space-y-indent-half" id="articlePublishForm">
+            <div>
+                <label for="articlePublish" class="inline-block mb-2">
+                    {{ __("Date of publish") }} <span class="text-danger">*</span>
+                </label>
+                <input type="datetime-local" id="articlePublish"
+                       class="form-control {{ $errors->has("publishedAt") ? "border-danger" : "" }}"
+                       required
+                       wire:loading.attr="disabled"
+                       wire:model="publishedAt">
+                <x-tt::form.error name="publishedAt"/>
+            </div>
+
+            <div class="flex items-center space-x-indent-half">
+                <button type="button" class="btn btn-outline-dark" wire:click="closePublish">
+                    {{ __("Cancel") }}
+                </button>
+                <button type="submit" form="articlePublishForm" class="btn btn-primary" wire:loading.attr="disabled">
+                    {{ __("Publish") }}
+                </button>
+            </div>
+        </form>
+    </x-slot>
+</x-tt::modal.dialog>
+
 <x-tt::modal.aside wire:model="displayData">
     <x-slot name="title">
         {{ $articleId ? __("Edit article") : __("Add article") }}

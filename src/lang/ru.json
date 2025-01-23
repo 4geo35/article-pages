@@ -16,5 +16,9 @@
     "Article not found": "Статья не найдена",
     "Article successfully updated": "Статья успешно обновлена",
     "Article successfully deleted": "Статья успешно удалена",
-    "Error while deleting article": "Ошибка при удалении статьи"
+    "Error while deleting article": "Ошибка при удалении статьи",
+    "Publish article": "Опубликовать статью",
+    "Publish": "Опубликовать",
+    "Article was published": "Статья была опубликована",
+    "Date of publish": "Дата публикации"
 }

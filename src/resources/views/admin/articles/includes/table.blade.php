@@ -44,7 +44,6 @@
                                 @cannot("update", $item) disabled
                                 @else wire:loading.attr="disabled"
                                 @endcannot
-                                {{-- TODO: add form to switch data --}}
                                 wire:click="switchPublish({{ $item->id }})">
                             @if ($item->published_at)
                                 <x-tt::ico.toggle-on />

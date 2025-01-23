@@ -10,6 +10,7 @@ trait ArticleEditTrait
 {
     public bool $displayData = false;
     public bool $displayDelete = false;
+    public bool $displayPublish = false;
 
     public string $title = "";
     public string $slug = "";
@@ -120,6 +121,46 @@ trait ArticleEditTrait
     {
         $this->displayDelete = false;
         $this->resetFields();
+    }
+
+    public function switchPublish(int $articleId): void
+    {
+        $this->resetFields();
+        $this->articleId = $articleId;
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("update", $article)) return;
+
+        if ($article->published_at) {
+            $article->update([
+                "published_at" => null,
+            ]);
+        } else {
+            $this->displayPublish = true;
+            $this->publishedAt = date_helper()->format(date_helper()->changeTz(now()->timestamp), "Y-m-d\TH:i");
+        }
+    }
+
+    public function setPublish(): void
+    {
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("update", $article)) return;
+        $this->validate([
+            "publishedAt" => ["required"]
+        ]);
+
+        $article->update([
+            "published_at" => $this->publishedAt,
+        ]);
+        session()->flash("success", __("Article was published"));
+        $this->closePublish();
+    }
+
+    public function closePublish(): void
+    {
+        $this->resetFields();
+        $this->displayPublish = false;
     }
 
     protected function findArticle(): ?ArticleModelInterface
