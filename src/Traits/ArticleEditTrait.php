@@ -66,9 +66,60 @@ trait ArticleEditTrait
         } else $this->coverUrl = null;
     }
 
+    public function update(): void
+    {
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("update", $article)) return;
+        $this->validate();
+
+        $article->update([
+            "title" => $this->title,
+            "slug" => $this->title,
+            "short" => $this->short,
+        ]);
+        $article->livewireImage($this->cover);
+
+        session()->flash("success", __("Article successfully updated"));
+        $this->closeData();
+        if (method_exists($this, "resetPage")) $this->resetPage();
+        if (isset($this->article)) $this->article->fresh();
+        $this->dispatch("article-updated");
+    }
+
+    public function showDelete(int $articleId): void
+    {
+        $this->resetFields();
+        $this->articleId = $articleId;
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("delete", $article)) return;
+
+        $this->displayDelete = true;
+    }
+
+    public function confirmDelete(): void
+    {
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("delete", $article)) return;
+
+        try {
+            $article->delete();
+            session()->flash("success", __("Article successfully deleted"));
+        } catch (\Exception $exception) {
+            session()->flash("error", __("Error while deleting article"));
+        }
+
+        $this->closeDelete();
+        if (method_exists($this, "resetPage")) $this->resetPage();
+        if (isset($this->article)) $this->redirectRoute("admin.articles.index");
+    }
+
     public function closeDelete(): void
     {
-
+        $this->displayDelete = false;
+        $this->resetFields();
     }
 
     protected function findArticle(): ?ArticleModelInterface

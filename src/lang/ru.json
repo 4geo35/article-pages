@@ -13,5 +13,8 @@
 
     "Picture": "Изображение",
     "Viewing an article": "Просмотр статьи",
-    "Article not found": "Статья не найдена"
+    "Article not found": "Статья не найдена",
+    "Article successfully updated": "Статья успешно обновлена",
+    "Article successfully deleted": "Статья успешно удалена",
+    "Error while deleting article": "Ошибка при удалении статьи"
 }
