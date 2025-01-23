@@ -15,6 +15,9 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Livewire
         $this->addLivewireComponents();
+
+        // Расширить конфигурацию
+        $this->expandConfiguration();
     }
 
     public function register(): void
@@ -40,5 +43,18 @@ class ArticlePagesServiceProvider extends ServiceProvider
             "ap-article-index",
             $component ?? ArticleIndexWire::class
         );
+    }
+
+    protected function expandConfiguration(): void
+    {
+        $um = app()->config["user-management"];
+        $permissions = $um["permissions"];
+        $ap = app()->config["article-pages"];
+        $permissions[] = [
+            "title" => $ap["articlePolicyTitle"],
+            "policy" => $ap["articlePolicy"],
+            "key" => $ap["articlePolicyKey"],
+        ];
+        app()->config["user-management.permissions"] = $permissions;
     }
 }
