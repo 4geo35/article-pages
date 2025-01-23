@@ -15,23 +15,35 @@
                 <td>{{ $item->short }}</td>
                 <td>
                     <div class="flex justify-center">
-                        <a href="{{ route('admin.articles.show', ['article' => $item]) }}"
-                           class="btn btn-primary px-btn-ico-text rounded-e-none">
-                            <x-tt::ico.eye />
-                        </a>
+                        @cannot("show", $item)
+                            <button type="button" disabled class="btn btn-primary px-btn-ico-text rounded-e-none">
+                                <x-tt::ico.eye />
+                            </button>
+                        @else
+                            <a href="{{ route('admin.articles.show', ['article' => $item]) }}"
+                               class="btn btn-primary px-btn-ico-text rounded-e-none">
+                                <x-tt::ico.eye />
+                            </a>
+                        @endcannot
                         <button type="button" class="btn btn-dark px-btn-x-ico rounded-none"
-                                wire:loading.attr="disabled"
+                                @cannot("update", $item) disabled
+                                @else wire:loading.attr="disabled"
+                                @endcannot
                                 wire:click="showEdit({{ $item->id }})">
                             <x-tt::ico.edit />
                         </button>
                         <button type="button" class="btn btn-danger px-btn-x-ico rounded-s-none"
-                                wire:loading.attr="disabled"
+                                @cannot("delete", $item) disabled
+                                @else wire:loading.attr="disabled"
+                                @endcannot
                                 wire:click="showDelete({{ $item->id }})">
                             <x-tt::ico.trash />
                         </button>
 
                         <button type="button" class="btn {{ $item->published_at ? 'btn-success' : 'btn-danger' }} px-btn-x-ico ml-indent-half"
-                                wire:loading.attr="disabled"
+                                @cannot("update", $item) disabled
+                                @else wire:loading.attr="disabled"
+                                @endcannot
                                 {{-- TODO: add form to switch data --}}
                                 wire:click="switchPublish({{ $item->id }})">
                             @if ($item->published_at)

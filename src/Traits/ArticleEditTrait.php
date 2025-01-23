@@ -54,6 +54,7 @@ trait ArticleEditTrait
         $this->articleId = $articleId;
         $article = $this->findArticle();
         if (! $article) return;
+        if (! $this->checkAuth("update", $article)) return;
 
         $this->title = $article->title;
         $this->slug = $article->slug;
@@ -63,6 +64,11 @@ trait ArticleEditTrait
             $article->load("image");
             $this->coverUrl = $article->image->storage;
         } else $this->coverUrl = null;
+    }
+
+    public function closeDelete(): void
+    {
+
     }
 
     protected function findArticle(): ?ArticleModelInterface
@@ -81,5 +87,19 @@ trait ArticleEditTrait
     protected function resetFields(): void
     {
         $this->reset(["title", "slug", "short", "publishedAt", "cover", "coverUrl", "articleId"]);
+    }
+
+    protected function checkAuth(string $action, ArticleModelInterface $article = null): bool
+    {
+        try {
+            $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+            $this->authorize($action, $article ?? $articleModelClass);
+            return true;
+        } catch (\Exception $exception) {
+            session()->flash("error", __("Unauthorized action"));
+            $this->closeData();
+            $this->closeDelete();
+            return false;
+        }
     }
 }
