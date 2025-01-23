@@ -27,6 +27,9 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Routes
         $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");
+
+        // Translations
+        $this->loadJsonTranslationsFrom(__DIR__ . "/lang");
     }
 
     protected function addLivewireComponents(): void
