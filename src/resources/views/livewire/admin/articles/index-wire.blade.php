@@ -9,6 +9,7 @@
                 </div>
             </div>
 
+            @include("ap::admin.articles.includes.table")
             @include("ap::admin.articles.includes.table-modals")
         </div>
     </div>

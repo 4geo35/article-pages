@@ -42,12 +42,14 @@ class IndexWire extends Component
 
     public function showCreate(): void
     {
+        // TODO: add check auth
         $this->resetFields();
         $this->displayData = true;
     }
 
     public function store(): void
     {
+        // TODO: add check auth
         $this->validate();
 
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;

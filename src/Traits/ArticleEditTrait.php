@@ -2,6 +2,8 @@
 
 namespace GIS\ArticlePages\Traits;
 
+use GIS\ArticlePages\Interfaces\ArticleModelInterface;
+use GIS\ArticlePages\Models\Article;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait ArticleEditTrait
@@ -44,6 +46,36 @@ trait ArticleEditTrait
     {
         $this->resetFields();
         $this->displayData = false;
+    }
+
+    public function showEdit(int $articleId): void
+    {
+        $this->resetFields();
+        $this->articleId = $articleId;
+        $article = $this->findArticle();
+        if (! $article) return;
+
+        $this->title = $article->title;
+        $this->slug = $article->slug;
+        $this->short = $article->short;
+        $this->displayData = true;
+        if ($article->image_id) {
+            $article->load("image");
+            $this->coverUrl = $article->image->storage;
+        } else $this->coverUrl = null;
+    }
+
+    protected function findArticle(): ?ArticleModelInterface
+    {
+        if (isset($this->article)) return $this->article;
+        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+        $article = $articleModelClass::find($this->articleId);
+        if (! $article) {
+            session()->flash("error", __("Article not found"));
+            $this->closeData();
+            return null;
+        }
+        return $article;
     }
 
     protected function resetFields(): void
