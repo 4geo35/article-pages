@@ -2,6 +2,8 @@
 
 namespace GIS\ArticlePages;
 
+use GIS\ArticlePages\Interfaces\ArticleModelInterface;
+use GIS\ArticlePages\Models\Article;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
@@ -33,6 +35,9 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Translations
         $this->loadJsonTranslationsFrom(__DIR__ . "/lang");
+
+        // Bindings
+        $this->bindInterfaces();
     }
 
     protected function addLivewireComponents(): void
@@ -56,5 +61,11 @@ class ArticlePagesServiceProvider extends ServiceProvider
             "key" => $ap["articlePolicyKey"],
         ];
         app()->config["user-management.permissions"] = $permissions;
+    }
+
+    protected function bindInterfaces(): void
+    {
+        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+        $this->app->bind(ArticleModelInterface::class, $articleModelClass);
     }
 }

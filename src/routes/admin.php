@@ -9,9 +9,8 @@ Route::middleware(["web", "auth", "app-management"])
         Route::prefix("articles")
             ->as("articles.")
             ->group(function () {
-                $articleModelClass = config("article-pages.customArticleModel") ?? \GIS\ArticlePages\Models\Article::class;
-                Route::get("/", function () {
-                    return view("ap::admin.articles.index");
-                })->name("index")->middleware("can:viewAny,{$articleModelClass}");
+                $articleControllerClass = config("article-pages.customArticleAdminController") ?? \GIS\ArticlePages\Http\Controllers\Admin\ArticleController::class;
+                Route::get("/", [$articleControllerClass, "index"])->name("index");
+                Route::get("/{article}", [$articleControllerClass, "show"])->name("show");
             });
     });

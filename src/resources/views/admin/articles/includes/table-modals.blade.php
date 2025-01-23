@@ -1,0 +1,73 @@
+<x-tt::modal.confirm wire:model="displayDelete">
+    <x-slot name="title">{{ __("Delete article") }}</x-slot>
+    <x-slot name="text">{{ __("It will be impossible to restore the article!") }}</x-slot>
+</x-tt::modal.confirm>
+
+<x-tt::modal.aside wire:model="displayData">
+    <x-slot name="title">
+        {{ $articleId ? __("Edit article") : __("Add article") }}
+    </x-slot>
+    <x-slot name="content">
+        <form wire:submit.prevent="{{ $articleId ? 'update' : 'store' }}"
+              class="space-y-indent-half" id="articleDataForm">
+            <div>
+                <label for="articleTitle" class="inline-block mb-2">
+                    {{ __("Title") }} <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="articleTitle"
+                       class="form-control {{ $errors->has("title") ? "border-danger" : "" }}"
+                       required
+                       wire:loading.attr="disabled"
+                       wire:model="title">
+                <x-tt::form.error name="title"/>
+            </div>
+
+            <div>
+                <label for="articleSlug" class="inline-block mb-2">
+                    {{ __("Slug") }}
+                </label>
+                <input type="text" id="articleSlug"
+                       class="form-control {{ $errors->has("slug") ? "border-danger" : "" }}"
+                       wire:loading.attr="disabled"
+                       wire:model="slug">
+                <x-tt::form.error name="slug"/>
+            </div>
+
+            <div>
+                <label for="articleCover" class="inline-block mb-2">{{ __("Cover") }}</label>
+                <input type="file" id="articleCover"
+                       class="form-control {{ $errors->has('cover') ? 'border-danger' : '' }}"
+                       wire:loading.attr="disabled"
+                       wire:model.lazy="cover">
+                <x-tt::form.error name="cover" />
+                @if ($coverUrl)
+                    <div class="mt-indent-half">
+                        <a href="{{ $coverUrl }}" target="_blank" class="text-primary hover:text-primary-hover">
+                            {{ __("Picture") }}
+                        </a>
+                    </div>
+                @endif
+            </div>
+
+            <div>
+                <label for="articleShort" class="inline-block mb-2">
+                    {{ __("Short description") }}
+                </label>
+                <input type="text" id="articleShort"
+                       class="form-control {{ $errors->has("short") ? "border-danger" : "" }}"
+                       wire:loading.attr="disabled"
+                       wire:model="short">
+                <x-tt::form.error name="short"/>
+            </div>
+
+            <div class="flex items-center space-x-indent-half">
+                <button type="button" class="btn btn-outline-dark" wire:click="closeData">
+                    {{ __("Cancel") }}
+                </button>
+                <button type="submit" form="articleDataForm" class="btn btn-primary" wire:loading.attr="disabled">
+                    {{ $articleId ? __("Update") : __("Add") }}
+                </button>
+            </div>
+        </form>
+    </x-slot>
+</x-tt::modal.aside>

@@ -4,6 +4,7 @@ return [
     // Admin
     // Articles
     "customArticleModel" => null,
+    "customArticleAdminController" => null,
     "customArticleIndexComponent" => null,
 
     // Policy

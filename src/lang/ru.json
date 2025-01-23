@@ -1,3 +1,16 @@
 {
-    "Articles": "Статьи"
+    "Articles": "Статьи",
+    "Title": "Заголовок",
+    "Slug": "Адресная строка",
+    "Cover": "Обложка",
+    "Clear": "Очистить",
+
+    "Delete article": "Удалить статью",
+    "It will be impossible to restore the article!": "Будет невозможно восстановить статью!",
+
+    "Edit article": "Редактировать статью",
+    "Add article": "Добавить статью",
+
+    "Picture": "Изображение",
+    "Viewing an article": "Просмотр статьи"
 }
