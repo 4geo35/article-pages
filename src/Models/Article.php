@@ -22,4 +22,11 @@ class Article extends Model implements ArticleModelInterface
         "short",
         "published_at",
     ];
+
+    public function getPublishedHumanAttribute()
+    {
+        $value = $this->published_at;
+        if (empty($value)) return $value;
+        return date_helper()->format($value);
+    }
 }
