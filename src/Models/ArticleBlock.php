@@ -28,12 +28,9 @@ class ArticleBlock extends Model implements ArticleBlockModelInterface
 
     public function getTypeTitleAttribute(): string
     {
-        return match ($this->type) {
-            "text" => __("Text"),
-            "image_text" => __("Text + Image"),
-            "gallery" => __("Image gallery"),
-            "single_image" => __("Image"),
-        };
+        if (! empty(config("article-pages.blockTypesList")[$this->type]))
+            return __(config("article-pages.blockTypesList")[$this->type]);
+        else return "";
     }
 
     public function getMarkdownAttribute(): ?string

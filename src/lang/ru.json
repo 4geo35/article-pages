@@ -28,5 +28,11 @@
     "Text": "Текст",
     "Text + Image": "Текст + Изображение",
     "Image gallery": "Галерея изображений",
-    "Image": "Изображение"
+    "Image": "Изображение",
+    "Block not found": "Блок не найден",
+    "Add block": "Добавить блок",
+    "Block type not found": "Тип блока не найден",
+    "Delete block": "Удалить блок",
+    "It will be impossible to restore the block!": "Будет невозможно восстановить блок!",
+    "Edit block": "Редактировать блок"
 }
