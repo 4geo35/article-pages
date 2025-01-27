@@ -23,5 +23,10 @@
     "Publish article": "Опубликовать статью",
     "Publish": "Опубликовать",
     "Article was published": "Статья была опубликована",
-    "Date of publish": "Дата публикации"
+    "Date of publish": "Дата публикации",
+
+    "Text": "Текст",
+    "Text + Image": "Текст + Изображение",
+    "Image gallery": "Галерея изображений",
+    "Image": "Изображение"
 }

@@ -7,6 +7,8 @@ return [
     "customArticleAdminController" => null,
     "customArticleIndexComponent" => null,
     "customArticleShowComponent" => null,
+    // Blocks
+    "customArticleBlockModel" => null,
 
     // Policy
     "articlePolicyTitle" => "Управление статьями",

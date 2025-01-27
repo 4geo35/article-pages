@@ -11,6 +11,7 @@ use GIS\TraitsHelpers\Traits\ShouldHumanDate;
 use GIS\TraitsHelpers\Traits\ShouldSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model implements ArticleModelInterface
 {
@@ -22,6 +23,12 @@ class Article extends Model implements ArticleModelInterface
         "short",
         "published_at",
     ];
+
+    public function blocks(): HasMany
+    {
+        $blockModelClass = config("article-pages.customArticleBlockModel") ?? ArticleBlock::class;
+        return $this->hasMany($blockModelClass, "article_id");
+    }
 
     public function getPublishedHumanAttribute()
     {
