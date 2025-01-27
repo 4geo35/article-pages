@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
 use GIS\ArticlePages\Livewire\Admin\Articles\ShowWire as ArticleShowWire;
+use GIS\ArticlePages\Livewire\Admin\ArticleBlocks\IndexWire as ArticleBlockIndexWire;
 
 class ArticlePagesServiceProvider extends ServiceProvider
 {
@@ -54,6 +55,13 @@ class ArticlePagesServiceProvider extends ServiceProvider
         Livewire::component(
             "ap-article-show",
             $component ?? ArticleShowWire::class
+        );
+
+        // Blocks
+        $component = config("article-pages.customArticleBlockIndexComponent");
+        Livewire::component(
+            "ap-article-block-index",
+            $component ?? ArticleBlockIndexWire::class
         );
     }
 

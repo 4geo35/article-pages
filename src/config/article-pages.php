@@ -9,6 +9,7 @@ return [
     "customArticleShowComponent" => null,
     // Blocks
     "customArticleBlockModel" => null,
+    "customArticleBlockIndexComponent" => null,
 
     // Policy
     "articlePolicyTitle" => "Управление статьями",
