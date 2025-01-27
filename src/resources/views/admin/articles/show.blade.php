@@ -2,5 +2,8 @@
     <x-slot name="title">{{ __("Viewing an article") }}</x-slot>
     <x-slot name="pageTitle">{{ __("Viewing an article") }}</x-slot>
 
-    Hello
+    <div class="space-y-indent">
+        <livewire:ap-article-show :article="$article" />
+        <livewire:ma-metas :model="$article" />
+    </div>
 </x-admin-layout>
