@@ -34,5 +34,6 @@
     "Block type not found": "Тип блока не найден",
     "Delete block": "Удалить блок",
     "It will be impossible to restore the block!": "Будет невозможно восстановить блок!",
-    "Edit block": "Редактировать блок"
+    "Edit block": "Редактировать блок",
+    "Block successfully added": "Блок успешно добавлен"
 }

@@ -4,6 +4,9 @@ namespace GIS\ArticlePages;
 
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Models\Article;
+use GIS\ArticlePages\Models\ArticleBlock;
+use GIS\ArticlePages\Observers\ArticleBlockObserver;
+use GIS\ArticlePages\Observers\ArticleObserver;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
@@ -22,6 +25,15 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Расширить конфигурацию
         $this->expandConfiguration();
+
+        // Observers
+        $articleObserverClass = config("article-pages.customArticleModelObserver") ?? ArticleObserver::class;
+        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+        $articleModelClass::observe($articleObserverClass);
+
+        $blockObserverClass = config("article-pages.customArticleBlockModelObserver") ?? ArticleBlockObserver::class;
+        $blockModelClass = config("article-pages.customArticleBlockModel") ?? ArticleBlock::class;
+        $blockModelClass::observe($blockObserverClass);
     }
 
     public function register(): void

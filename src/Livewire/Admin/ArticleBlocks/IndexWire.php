@@ -34,10 +34,10 @@ class IndexWire extends Component
             "title" => ["nullable", "string", "max:150"],
         ];
 
-        if (in_array($this->type, config("article-pages.blockImageValidation")))
+        if (in_array($this->type, config("article-pages.blockHasImage")))
             $rules["image"] = ["nullable", "image"];
 
-        if (in_array($this->type, config("article-pages.blockDescriptionValidation")))
+        if (in_array($this->type, config("article-pages.blockHasDescription")))
             $rules["description"] = ["required", "string"];
 
         return $rules;
@@ -72,9 +72,33 @@ class IndexWire extends Component
         $this->displayData = true;
     }
 
+    public function store(): void
+    {
+        if (! $this->checkType($this->type)) return;
+        $this->validate();
+        $block = $this->article->blocks()->create([
+            "type" => $this->type,
+            "title" => $this->title,
+            "description" => $this->description,
+        ]);
+        /**
+         * @var ArticleBlockModelInterface $block
+         */
+        $block->livewireImage($this->image);
+        session()->flash("block-success", __("Block successfully added"));
+        $this->closeData();
+    }
+
+    public function closeData(): void
+    {
+        $this->displayData = false;
+        $this->resetFields();
+    }
+
     public function closeDelete(): void
     {
-
+        $this->displayDelete = false;
+        $this->resetFields();
     }
 
     protected function checkType(string $type): bool
@@ -96,6 +120,7 @@ class IndexWire extends Component
         if (! $block) {
             session()->flash("block-error", __("Block not found"));
             $this->closeDelete();
+            $this->closeData();
             return null;
         }
         return $block;

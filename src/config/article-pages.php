@@ -4,11 +4,13 @@ return [
     // Admin
     // Articles
     "customArticleModel" => null,
+    "customArticleModelObserver" => null,
     "customArticleAdminController" => null,
     "customArticleIndexComponent" => null,
     "customArticleShowComponent" => null,
     // Blocks
     "customArticleBlockModel" => null,
+    "customArticleBlockModelObserver" => null,
     "customArticleBlockIndexComponent" => null,
     "blockTypesList" => [
         "text" => "Text",
@@ -16,8 +18,8 @@ return [
         "gallery" => "Image gallery",
         "single_image" => "Image",
     ],
-    "blockImageValidation" => ["image_text", "single_image"],
-    "blockDescriptionValidation" => ["text", "image_text"],
+    "blockHasImage" => ["image_text", "single_image"],
+    "blockHasDescription" => ["text", "image_text"],
 
     // Policy
     "articlePolicyTitle" => "Управление статьями",
