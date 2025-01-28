@@ -123,6 +123,19 @@ trait ArticleEditTrait
         $this->resetFields();
     }
 
+    public function switchFixed(int $articleId): void
+    {
+        $this->resetFields();
+        $this->articleId = $articleId;
+        $article = $this->findArticle();
+        if (! $article) return;
+        if (! $this->checkAuth("update", $article)) return;
+
+        $article->update([
+            "fixed_at" => $article->fixed_at ? null : now(),
+        ]);
+    }
+
     public function switchPublish(int $articleId): void
     {
         $this->resetFields();

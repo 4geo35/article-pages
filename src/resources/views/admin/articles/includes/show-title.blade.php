@@ -17,7 +17,7 @@
             <x-tt::ico.trash />
         </button>
 
-        <button type="button" class="btn {{ $article->published_at ? 'btn-success' : 'btn-danger' }} px-btn-x-ico ml-indent-half"
+        <button type="button" class="btn {{ $article->published_at ? 'btn-success' : 'btn-danger' }} px-btn-x-ico ml-indent-half rounded-e-none"
                 @cannot("update", $article) disabled
                 @else wire:loading.attr="disabled"
                 @endcannot
@@ -27,6 +27,13 @@
             @else
                 <x-tt::ico.toggle-off />
             @endif
+        </button>
+        <button type="button" class="btn {{ $article->fixed_at ? 'btn-primary' : 'btn-outline-primary' }} px-btn-x-ico rounded-s-none"
+                @cannot("update", $article) disabled
+                @else wire:loading.attr="disabled"
+                @endcannot
+                wire:click="switchFixed({{ $article->id }})">
+            <x-ap::ico.pin />
         </button>
     </div>
 </div>

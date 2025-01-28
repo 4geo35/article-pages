@@ -22,6 +22,7 @@ class Article extends Model implements ArticleModelInterface
         "slug",
         "short",
         "published_at",
+        "fixed_at",
     ];
 
     public function blocks(): HasMany

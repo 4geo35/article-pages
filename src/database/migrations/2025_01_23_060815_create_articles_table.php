@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("slug")->unique();
             $table->string("short")->nullable();
             $table->dateTime("published_at")->nullable();
+            $table->dateTime("fixed_at")->nullable();
             $table->timestamps();
         });
     }

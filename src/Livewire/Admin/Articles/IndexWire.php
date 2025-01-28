@@ -16,11 +16,13 @@ class IndexWire extends Component
     use WithPagination, WithFileUploads, ArticleEditTrait;
 
     public string $searchTitle = "";
+    public string $searchFixed = "all";
 
     protected function queryString(): array
     {
         return [
             "searchTitle" => ["as" => "title", "except" => ""],
+            "searchFixed" => ["as" => "fixed", "except" => "all"],
         ];
     }
 
@@ -29,6 +31,8 @@ class IndexWire extends Component
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
         $query = $articleModelClass::query();
         BuilderActions::extendLike($query, $this->searchTitle, "title");
+        if (trim($this->searchFixed) === "yes") $query->whereNotNull("fixed_at");
+        if (trim($this->searchFixed) === "no") $query->whereNull("fixed_at");
         $query->orderBy("created_at", "desc");
         $articles = $query->paginate();
         return view('ap::livewire.admin.articles.index-wire', compact("articles"));
@@ -36,7 +40,7 @@ class IndexWire extends Component
 
     public function clearSearch(): void
     {
-        $this->reset("searchTitle");
+        $this->reset("searchTitle", "searchFixed");
         $this->resetPage();
     }
 
