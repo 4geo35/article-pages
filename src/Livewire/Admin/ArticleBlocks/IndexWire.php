@@ -158,6 +158,36 @@ class IndexWire extends Component
         $this->closeDelete();
     }
 
+    public function moveUp(int $blockId): void
+    {
+        if (! $this->checkAuth()) return;
+        $this->blockId = $blockId;
+        $block = $this->findBlock();
+        if (! $block) return;
+
+        $previous = $this->article->blocks()
+            ->where("priority", "<", $block->priority)
+            ->orderBy("priority", "desc")
+            ->first();
+
+        if ($previous) $this->switchPriority($block, $previous);
+    }
+
+    public function moveDown(int $blockId): void
+    {
+        if (! $this->checkAuth()) return;
+        $this->blockId = $blockId;
+        $block = $this->findBlock();
+        if (! $block) return;
+
+        $previous = $this->article->blocks()
+            ->where("priority", ">", $block->priority)
+            ->orderBy("priority")
+            ->first();
+
+        if ($previous) $this->switchPriority($block, $previous);
+    }
+
     protected function checkType(string $type): bool
     {
         if (isset(config("article-pages.blockTypesList")[$type])) return true;
