@@ -132,10 +132,30 @@ class IndexWire extends Component
         $this->closeData();
     }
 
+    public function showDelete(int $blockId): void
+    {
+        if (! $this->checkAuth()) return;
+        $this->resetFields();
+        $this->blockId = $blockId;
+        $block = $this->findBlock();
+        if (! $block) return;
+        $this->displayDelete = true;
+    }
+
     public function closeDelete(): void
     {
         $this->displayDelete = false;
         $this->resetFields();
+    }
+
+    public function confirmDelete(): void
+    {
+        if (! $this->checkAuth()) return;
+        $block = $this->findBlock();
+        if (! $block) return;
+        $block->delete();
+        session()->flash("block-success", __("Block successfully deleted"));
+        $this->closeDelete();
     }
 
     protected function checkType(string $type): bool

@@ -38,5 +38,6 @@
     "Edit block": "Редактировать блок",
     "Block successfully added": "Блок успешно добавлен",
     "Template not found": "Шаблон не найден",
-    "Block successfully updated": "Блок успешно обновлен"
+    "Block successfully updated": "Блок успешно обновлен",
+    "Block successfully deleted": "Блок успешно удален"
 }
