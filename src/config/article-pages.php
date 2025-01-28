@@ -27,6 +27,13 @@ return [
         "single_image" => "ap::admin.article-blocks.templates.single-image",
     ],
 
+    // Templates
+    "templates" => [
+        "image-text-block" => \GIS\ArticlePages\Templates\ImageTextBlock::class,
+        "image-text-block-small" => \GIS\ArticlePages\Templates\ImageTextBlockSmall::class,
+        "gallery-block" => \GIS\ArticlePages\Templates\ImageTextBlock::class,
+    ],
+
     // Policy
     "articlePolicyTitle" => "Управление статьями",
     "articlePolicy" => \GIS\ArticlePages\Policies\ArticlePolicy::class,

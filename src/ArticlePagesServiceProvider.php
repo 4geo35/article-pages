@@ -79,15 +79,23 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
     protected function expandConfiguration(): void
     {
+        $ap = app()->config["article-pages"];
+
         $um = app()->config["user-management"];
         $permissions = $um["permissions"];
-        $ap = app()->config["article-pages"];
         $permissions[] = [
             "title" => $ap["articlePolicyTitle"],
             "policy" => $ap["articlePolicy"],
             "key" => $ap["articlePolicyKey"],
         ];
         app()->config["user-management.permissions"] = $permissions;
+
+        $fa = app()->config["fileable"];
+        $templates = $fa["templates"];
+        foreach ($ap["templates"] as $key => $template) {
+            $templates[$key] = $template;
+        }
+        app()->config["fileable.templates"] = $templates;
     }
 
     protected function bindInterfaces(): void
