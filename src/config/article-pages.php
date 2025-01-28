@@ -20,6 +20,12 @@ return [
     ],
     "blockHasImage" => ["image_text", "single_image"],
     "blockHasDescription" => ["text", "image_text"],
+    "blockTypeTemplates" => [
+        "text" => "ap::admin.article-blocks.templates.text",
+        "image_text" => "ap::admin.article-blocks.templates.image-text",
+        "gallery" => "ap::admin.article-blocks.templates.gallery",
+        "single_image" => "ap::admin.article-blocks.templates.single-image",
+    ],
 
     // Policy
     "articlePolicyTitle" => "Управление статьями",

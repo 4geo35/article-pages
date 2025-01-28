@@ -4,6 +4,7 @@ namespace GIS\ArticlePages\Livewire\Admin\ArticleBlocks;
 
 use GIS\ArticlePages\Interfaces\ArticleBlockModelInterface;
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
+use GIS\ArticlePages\Models\Article;
 use GIS\ArticlePages\Models\ArticleBlock;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -55,7 +56,7 @@ class IndexWire extends Component
     public function render(): View
     {
         $blocks = $this->article->blocks()->orderBy("priority")->get();
-        return view('ap::livewire.admin.article-blocks.index-wire');
+        return view('ap::livewire.admin.article-blocks.index-wire', compact("blocks"));
     }
 
     #[On("article-updated")]
@@ -66,14 +67,22 @@ class IndexWire extends Component
 
     public function showCreateBlock(string $type): void
     {
+        if (! $this->checkAuth()) return;
         $this->resetFields();
         if (! $this->checkType($type)) return;
         $this->type = $type;
         $this->displayData = true;
     }
 
+    public function closeData(): void
+    {
+        $this->displayData = false;
+        $this->resetFields();
+    }
+
     public function store(): void
     {
+        if (! $this->checkAuth()) return;
         if (! $this->checkType($this->type)) return;
         $this->validate();
         $block = $this->article->blocks()->create([
@@ -89,10 +98,38 @@ class IndexWire extends Component
         $this->closeData();
     }
 
-    public function closeData(): void
+    public function showEdit(int $blockId): void
     {
-        $this->displayData = false;
+        if (! $this->checkAuth()) return;
         $this->resetFields();
+        $this->blockId = $blockId;
+        $block = $this->findBlock();
+        if (! $block) return;
+
+        $this->type = $block->type;
+        $this->title = $block->title;
+        $this->description = $block->description;
+        if ($block->image_id) {
+            $block->load("image");
+            $this->imageUrl = $block->image->storage;
+        } else $this->imageUrl = null;
+        $this->displayData = true;
+    }
+
+    public function update(): void
+    {
+        if (! $this->checkAuth()) return;
+        $block = $this->findBlock();
+        if (! $block) return;
+
+        $this->validate();
+        $block->update([
+            "title" => $this->title,
+            "description" => $this->description,
+        ]);
+        $block->livewireImage($this->image);
+        session()->flash("block-success", __("Block successfully updated"));
+        $this->closeData();
     }
 
     public function closeDelete(): void
@@ -108,12 +145,25 @@ class IndexWire extends Component
         return false;
     }
 
+    protected function checkAuth(): bool
+    {
+        try {
+            $this->authorize("update", $this->article);
+            return true;
+        } catch (\Exception $exception) {
+            session()->flash("block-error", __("Unauthorized action"));
+            $this->closeData();
+            $this->closeDelete();
+            return false;
+        }
+    }
+
     protected function resetFields(): void
     {
         $this->reset(["blockId", "title", "description", "image", "imageUrl"]);
     }
 
-    protected function findBlock(): ?ArticleModelInterface
+    protected function findBlock(): ?ArticleBlockModelInterface
     {
         $blockModelClass = config("article-pages.customArticleBlockModel") ?? ArticleBlock::class;
         $block = $blockModelClass::find($this->blockId);

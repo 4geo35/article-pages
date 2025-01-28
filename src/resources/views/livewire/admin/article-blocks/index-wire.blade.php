@@ -14,6 +14,7 @@
             </div>
         </div>
 
+        @include("ap::admin.article-blocks.includes.items")
         @include("ap::admin.article-blocks.includes.modals")
     </div>
 </div>

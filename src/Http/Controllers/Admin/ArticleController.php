@@ -19,7 +19,7 @@ class ArticleController extends Controller
 
     public function show(ArticleModelInterface $article): View
     {
-        Gate::authorize("show", $article);
+        Gate::authorize("viewAny", $article::class);
         return view("ap::admin.articles.show", compact("article"));
     }
 }

@@ -15,7 +15,7 @@
                 <td>{{ $item->short }}</td>
                 <td>
                     <div class="flex justify-center">
-                        @cannot("show", $item)
+                        @cannot("viewAny", $item::class)
                             <button type="button" disabled class="btn btn-primary px-btn-ico-text rounded-e-none">
                                 <x-tt::ico.eye />
                             </button>

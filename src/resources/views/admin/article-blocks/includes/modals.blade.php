@@ -55,7 +55,7 @@
                     </textarea>
                     <x-tt::form.error name="description" />
 
-                    <div class="prose prose-sm">
+                    <div class="prose prose-sm mt-indent-half">
                         {!! \Illuminate\Support\Str::markdown($description) !!}
                     </div>
                 </div>
