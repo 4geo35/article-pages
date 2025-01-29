@@ -1,6 +1,13 @@
 <?php
 
 return [
+    // Web
+    "pagePrefix" => "articles",
+    "useBreadcrumbs" => true,
+    "pageTitle" => "Статьи",
+    "useH1" => true,
+    "customArticleWebIndexComponent" => null,
+
     // Admin
     // Articles
     "customArticleModel" => null,

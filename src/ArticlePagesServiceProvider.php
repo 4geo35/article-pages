@@ -12,6 +12,7 @@ use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
 use GIS\ArticlePages\Livewire\Admin\Articles\ShowWire as ArticleShowWire;
 use GIS\ArticlePages\Livewire\Admin\ArticleBlocks\IndexWire as ArticleBlockIndexWire;
+use GIS\ArticlePages\Livewire\Web\Articles\IndexWire as ArticleWebIndexWire;
 
 class ArticlePagesServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,7 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Routes
         $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");
+        $this->loadRoutesFrom(__DIR__ . "/routes/web.php");
 
         // Translations
         $this->loadJsonTranslationsFrom(__DIR__ . "/lang");
@@ -74,6 +76,13 @@ class ArticlePagesServiceProvider extends ServiceProvider
         Livewire::component(
             "ap-article-block-index",
             $component ?? ArticleBlockIndexWire::class
+        );
+
+        // Web
+        $component = config("article-pages.customArticleWebIndexComponent");
+        Livewire::component(
+            "ap-web-article-index",
+            $component ?? ArticleWebIndexWire::class
         );
     }
 
