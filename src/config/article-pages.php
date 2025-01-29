@@ -7,6 +7,12 @@ return [
     "pageTitle" => "Статьи",
     "useH1" => true,
     "customArticleWebIndexComponent" => null,
+    "webBlockTypeTemplates" => [
+        "text" => "ap::web.article-blocks.templates.text",
+        "image_text" => "ap::web.article-blocks.templates.image-text",
+        "gallery" => "ap::web.article-blocks.templates.gallery",
+        "single_image" => "ap::web.article-blocks.templates.single-image",
+    ],
 
     // Admin
     // Articles

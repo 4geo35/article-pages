@@ -16,7 +16,7 @@ class IndexWire extends Component
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
         $articles = $articleModelClass::query()
             ->whereNotNull("published_at")
-            ->where("published_at", "<", now("Europe/Moscow"))
+            ->where("published_at", "<", now(date_helper()->timeZone))
             ->with("image")
             ->orderBy("fixed_at", "desc")
             ->orderBy("published_at", "desc")
