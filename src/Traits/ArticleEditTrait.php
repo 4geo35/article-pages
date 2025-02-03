@@ -2,8 +2,10 @@
 
 namespace GIS\ArticlePages\Traits;
 
+use GIS\ArticleLabels\Models\ArticleLabel;
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Models\Article;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait ArticleEditTrait
@@ -20,6 +22,9 @@ trait ArticleEditTrait
 
     public string|null $coverUrl = null;
     public int|null $articleId = null;
+
+    public Collection|null $labelList = null;
+    public array $labels = [];
 
     public function rules(): array
     {
@@ -57,6 +62,7 @@ trait ArticleEditTrait
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
 
+        $this->setLabelList($article);
         $this->title = $article->title;
         $this->slug = $article->slug;
         $this->short = $article->short;
@@ -80,6 +86,9 @@ trait ArticleEditTrait
             "short" => $this->short,
         ]);
         $article->livewireImage($this->cover);
+        if (config("article-labels")) {
+            $article->labels()->sync($this->labels);
+        }
 
         session()->flash("success", __("Article successfully updated"));
         $this->closeData();
@@ -191,7 +200,7 @@ trait ArticleEditTrait
 
     protected function resetFields(): void
     {
-        $this->reset(["title", "slug", "short", "publishedAt", "cover", "coverUrl", "articleId"]);
+        $this->reset(["title", "slug", "short", "publishedAt", "cover", "coverUrl", "articleId", "labelList", "labels"]);
     }
 
     protected function checkAuth(string $action, ArticleModelInterface $article = null): bool
@@ -205,6 +214,23 @@ trait ArticleEditTrait
             $this->closeData();
             $this->closeDelete();
             return false;
+        }
+    }
+
+    protected function setLabelList(ArticleModelInterface $article): void
+    {
+        if (! config("article-labels")) {
+            $this->labelList = null;
+            return;
+        }
+        $labelModelClass = config("article-labels.customLabelModel") ?? ArticleLabel::class;
+        $this->labelList = $labelModelClass::query()
+            ->select("id", "title")
+            ->orderBy("priority")
+            ->get();
+        $article->load("labels:id");
+        foreach ($article->labels as $label) {
+            $this->labels[] = $label->id;
         }
     }
 }

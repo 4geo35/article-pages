@@ -90,6 +90,24 @@
 {{--                <x-tt::form.error name="short"/>--}}
 {{--            </div>--}}
 
+            @if ($labelList)
+                <div>
+                    <div class="inline-block mb-2">Метки</div>
+                    <div class="space-y-indent-half">
+                        @foreach($labelList as $label)
+                            <div class="form-check">
+                                <input type="checkbox" wire:model="labels"
+                                       class="form-check-input" id="label-{{ $label->id }}"
+                                       value="{{ $label->id }}">
+                                <label for="label-{{ $label->id }}" class="form-check-label">
+                                    {{ $label->title }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <div class="flex items-center space-x-indent-half">
                 <button type="button" class="btn btn-outline-dark" wire:click="closeData">
                     {{ __("Cancel") }}
