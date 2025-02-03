@@ -3,7 +3,7 @@
         <tr>
             <x-tt::table.heading class="text-left text-nowrap">{{ __("Title") }}</x-tt::table.heading>
             <x-tt::table.heading class="text-left text-nowrap">{{ __("Slug") }}</x-tt::table.heading>
-            <x-tt::table.heading class="text-left text-nowrap">{{ __("Shor description") }}</x-tt::table.heading>
+{{--            <x-tt::table.heading class="text-left text-nowrap">{{ __("Shor description") }}</x-tt::table.heading>--}}
             <x-tt::table.heading>{{ __("Actions") }}</x-tt::table.heading>
         </tr>
     </x-slot>
@@ -12,7 +12,7 @@
             <tr>
                 <td class="text-nowrap">{{ $item->title }}</td>
                 <td class="text-nowrap">{{ $item->slug }}</td>
-                <td>{{ $item->short }}</td>
+{{--                <td>{{ $item->short }}</td>--}}
                 <td>
                     <div class="flex justify-center">
                         @cannot("viewAny", $item::class)

@@ -79,16 +79,16 @@
                 @endif
             </div>
 
-            <div>
-                <label for="articleShort" class="inline-block mb-2">
-                    {{ __("Short description") }}
-                </label>
-                <input type="text" id="articleShort"
-                       class="form-control {{ $errors->has("short") ? "border-danger" : "" }}"
-                       wire:loading.attr="disabled"
-                       wire:model="short">
-                <x-tt::form.error name="short"/>
-            </div>
+{{--            <div>--}}
+{{--                <label for="articleShort" class="inline-block mb-2">--}}
+{{--                    {{ __("Short description") }}--}}
+{{--                </label>--}}
+{{--                <input type="text" id="articleShort"--}}
+{{--                       class="form-control {{ $errors->has("short") ? "border-danger" : "" }}"--}}
+{{--                       wire:loading.attr="disabled"--}}
+{{--                       wire:model="short">--}}
+{{--                <x-tt::form.error name="short"/>--}}
+{{--            </div>--}}
 
             <div class="flex items-center space-x-indent-half">
                 <button type="button" class="btn btn-outline-dark" wire:click="closeData">

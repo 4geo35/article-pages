@@ -56,7 +56,7 @@ class IndexWire extends Component
         if (! $this->checkAuth("create")) return;
         $this->validate();
 
-        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+        $articleModelClass = config("article-pages.customLabelModel") ?? Article::class;
         $article = $articleModelClass::create([
             "title" => $this->title,
             "slug" => $this->title,

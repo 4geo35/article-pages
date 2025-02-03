@@ -11,12 +11,13 @@
         </button>
     </div>
 
-    <div>
+    <div class="flex flex-col md:flex-row space-y-indent-half md:space-y-0 md:space-x-indent-half ml-indent-half">
         @can("create", config("article-pages.customArticleModel") ?? \GIS\ArticlePages\Models\Article::class)
-            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x ml-indent-half" wire:click="showCreate">
+            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x" wire:click="showCreate">
                 <x-tt::ico.circle-plus />
                 <span class="hidden lg:inline-block pl-btn-ico-text">{{ __("Add") }}</span>
             </button>
         @endcan
+        @includeIf("al::admin.article-labels.list-button")
     </div>
 </div>
