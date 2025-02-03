@@ -4,6 +4,9 @@
             <x-tt::table.heading class="text-left text-nowrap">{{ __("Title") }}</x-tt::table.heading>
             <x-tt::table.heading class="text-left text-nowrap">{{ __("Slug") }}</x-tt::table.heading>
 {{--            <x-tt::table.heading class="text-left text-nowrap">{{ __("Shor description") }}</x-tt::table.heading>--}}
+            @if (config("article-labels"))
+                <x-tt::table.heading class="text-left text-nowrap">Метки</x-tt::table.heading>
+            @endif
             <x-tt::table.heading>{{ __("Actions") }}</x-tt::table.heading>
         </tr>
     </x-slot>
@@ -13,6 +16,15 @@
                 <td class="text-nowrap">{{ $item->title }}</td>
                 <td class="text-nowrap">{{ $item->slug }}</td>
 {{--                <td>{{ $item->short }}</td>--}}
+                @if (config("article-labels"))
+                    <td>
+                        <ul>
+                            @foreach($item->labels as $label)
+                                <li>{{ $label->title }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                @endif
                 <td>
                     <div class="flex justify-center">
                         @cannot("viewAny", $item::class)

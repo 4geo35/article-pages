@@ -30,6 +30,7 @@ class IndexWire extends Component
     {
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
         $query = $articleModelClass::query();
+        if (config("article-labels")) $query->with("labels:id,title");
         BuilderActions::extendLike($query, $this->searchTitle, "title");
         if (trim($this->searchFixed) === "yes") $query->whereNotNull("fixed_at");
         if (trim($this->searchFixed) === "no") $query->whereNull("fixed_at");
