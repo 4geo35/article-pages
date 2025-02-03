@@ -44,6 +44,21 @@
                         <h3 class="font-semibold">{{ __("Short description") }}</h3>
                         <div>{{ $article->short ?? "-" }}</div>
                     </div>
+
+                    @if ($articleLabels)
+                        <div class="col w-full mb-indent-half">
+                            <h3 class="font-semibold">Метки</h3>
+                            @if ($articleLabels->count())
+                                <div class="flex flex-wrap">
+                                    @foreach($articleLabels as $label)
+                                        <div class="mr-indent-half px-4 py-1 rounded-full bg-dark text-white">{{ $label->title }}</div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div>-</div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

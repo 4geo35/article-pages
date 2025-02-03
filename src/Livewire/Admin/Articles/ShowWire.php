@@ -16,6 +16,11 @@ class ShowWire extends Component
 
     public function render(): View
     {
-        return view('ap::livewire.admin.articles.show-wire');
+        if (config("article-labels")) {
+            $articleLabels = $this->article->labels()->orderBy("priority")->get();
+        } else {
+            $articleLabels = null;
+        }
+        return view('ap::livewire.admin.articles.show-wire', compact("articleLabels"));
     }
 }
