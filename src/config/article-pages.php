@@ -46,6 +46,8 @@ return [
         "image-text-block-small" => \GIS\ArticlePages\Templates\ImageTextBlockSmall::class,
         "gallery-block" => \GIS\ArticlePages\Templates\GalleryBlock::class,
         "article-teaser" => \GIS\ArticlePages\Templates\ArticleTeaser::class,
+        "mobile-article-teaser" => \GIS\ArticlePages\Templates\MobileArticleTeaser::class,
+        "single-image-block" => \GIS\ArticlePages\Templates\SingleImageBlock::class,
     ],
 
     // Policy

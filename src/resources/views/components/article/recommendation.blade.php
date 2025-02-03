@@ -1,10 +1,10 @@
 @props(["article"])
 @php($url = route('web.articles.show', ['article' => $article]))
-<div class="w-full">
-    <a href="{{ $url }}" class="text-primary hover:text-primary-hover">
+<div class="w-full rounded shadow-lg py-indent px-indent-lg">
+    <a href="{{ $url }}" class="hover:text-primary-hover leading-tight text-xl font-semibold">
         {{ $article->title }}
     </a>
-    <div class="text-xs text-secondary mt-2">
-        {{ $article->published_human }}
+    <div class="text-secondary mt-indent">
+        {{ $article->published_date }}
     </div>
 </div>
