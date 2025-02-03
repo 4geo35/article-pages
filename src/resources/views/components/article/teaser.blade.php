@@ -7,6 +7,13 @@
                 <x-ap::ico.pin />
             </div>
         @endif
+        @if (config("article-labels"))
+            <div class="absolute top-0 left-0 mt-indent space-y-indent-half">
+                @foreach($article->labels as $label)
+                    <div class="px-indent-sm bg-[#545454] text-white text-sm sm:text-base rounded-e-full">{{ $label->title }}</div>
+                @endforeach
+            </div>
+        @endif
         <a href="{{ $url }}" class="block">
             @if($article->image)
                 <picture>
