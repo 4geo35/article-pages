@@ -44,7 +44,7 @@ return [
     "templates" => [
         "image-text-block" => \GIS\ArticlePages\Templates\ImageTextBlock::class,
         "image-text-block-small" => \GIS\ArticlePages\Templates\ImageTextBlockSmall::class,
-        "gallery-block" => \GIS\ArticlePages\Templates\ImageTextBlock::class,
+        "gallery-block" => \GIS\ArticlePages\Templates\GalleryBlock::class,
         "article-teaser" => \GIS\ArticlePages\Templates\ArticleTeaser::class,
     ],
 
