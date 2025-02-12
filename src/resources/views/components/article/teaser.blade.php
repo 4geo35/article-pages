@@ -1,6 +1,6 @@
 @props(["article"])
 @php($url = route('web.articles.show', ['article' => $article]))
-<div class="h-full rounded flex flex-col overflow-hidden bg-white shadow-lg">
+<div class="h-full rounded-base flex flex-col overflow-hidden bg-white shadow-lg">
     <div class="relative">
         @if ($article->fixed_at)
             <div class="w-[35px] h-[35px] absolute top-0 right-0 mt-indent-xs mr-indent-xs text-white flex justify-center items-center rounded-full bg-black/15">

@@ -1,6 +1,6 @@
 @props(["article"])
 @php($url = route('web.articles.show', ['article' => $article]))
-<div class="w-full rounded shadow-lg py-indent px-indent-lg">
+<div class="w-full rounded-base shadow-lg py-indent px-indent-lg">
     <a href="{{ $url }}" class="hover:text-primary-hover leading-tight text-xl font-semibold">
         {{ $article->title }}
     </a>
