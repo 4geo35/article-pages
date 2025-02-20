@@ -7,6 +7,7 @@ use GIS\ArticlePages\Models\Article;
 use GIS\ArticlePages\Models\ArticleBlock;
 use GIS\ArticlePages\Observers\ArticleBlockObserver;
 use GIS\ArticlePages\Observers\ArticleObserver;
+use GIS\Fileable\Traits\ExpandTemplatesTrait;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
@@ -16,6 +17,7 @@ use GIS\ArticlePages\Livewire\Web\Articles\IndexWire as ArticleWebIndexWire;
 
 class ArticlePagesServiceProvider extends ServiceProvider
 {
+    use ExpandTemplatesTrait;
     public function boot(): void
     {
         // Views
@@ -89,6 +91,7 @@ class ArticlePagesServiceProvider extends ServiceProvider
     protected function expandConfiguration(): void
     {
         $ap = app()->config["article-pages"];
+        $this->expandTemplates($ap);
 
         $um = app()->config["user-management"];
         $permissions = $um["permissions"];
@@ -98,13 +101,6 @@ class ArticlePagesServiceProvider extends ServiceProvider
             "key" => $ap["articlePolicyKey"],
         ];
         app()->config["user-management.permissions"] = $permissions;
-
-        $fa = app()->config["fileable"];
-        $templates = $fa["templates"];
-        foreach ($ap["templates"] as $key => $template) {
-            $templates[$key] = $template;
-        }
-        app()->config["fileable.templates"] = $templates;
     }
 
     protected function bindInterfaces(): void
