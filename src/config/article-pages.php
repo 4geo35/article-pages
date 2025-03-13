@@ -13,6 +13,7 @@ return [
         "gallery" => "ap::web.article-blocks.templates.gallery",
         "single_image" => "ap::web.article-blocks.templates.single-image",
     ],
+    "insideTitle" => [],
 
     // Admin
     // Articles

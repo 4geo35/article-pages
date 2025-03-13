@@ -1,4 +1,4 @@
 @props(["block"])
 @if ($block->title)
-    <h2 class="font-medium text-xl mb-indent-half">{{ $block->title }}</h2>
+    <x-tt::h3 class="mb-indent-half">{{ $block->title }}</x-tt::h3>
 @endif
