@@ -7,6 +7,7 @@ use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\Fileable\Traits\ShouldImage;
 use GIS\Metable\Traits\ShouldMeta;
 use GIS\TraitsHelpers\Traits\ShouldHumanDate;
+use GIS\TraitsHelpers\Traits\ShouldHumanPublishDate;
 use GIS\TraitsHelpers\Traits\ShouldSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model implements ArticleModelInterface
 {
-    use HasFactory, ShouldSlug, ShouldHumanDate, ShouldImage, ShouldMeta;
+    use HasFactory, ShouldSlug, ShouldHumanDate, ShouldImage, ShouldMeta, ShouldHumanPublishDate;
 
     protected $fillable = [
         "title",
@@ -39,19 +40,5 @@ class Article extends Model implements ArticleModelInterface
             $labelModelClass = config("article-labels.customLabelModel") ?? ArticleLabel::class;
             return $this->belongsToMany($labelModelClass);
         }
-    }
-
-    public function getPublishedHumanAttribute()
-    {
-        $value = $this->published_at;
-        if (empty($value)) return $value;
-        return date_helper()->format($value);
-    }
-
-    public function getPublishedDateAttribute(): string
-    {
-        $value = $this->published_at;
-        if (empty($value)) return $value;
-        return date_helper()->format($value, "d.m.Y");
     }
 }
