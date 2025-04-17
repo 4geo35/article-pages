@@ -13,7 +13,7 @@
                     <div class="col w-full sm:w-1/2 md:w-1/3 mb-indent-half">
                         <h3 class="font-semibold">{{ __("Cover") }}</h3>
                         <div>
-                            @if ($article->image_id)
+                            @if ($article->image_id && $article->image)
                                 <a href="{{ $article->image->storage }}"
                                    class="text-info hover:text-info-hover"
                                    target="_blank">

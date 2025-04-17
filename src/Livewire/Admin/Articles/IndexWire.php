@@ -6,6 +6,7 @@ use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Models\Article;
 use GIS\ArticlePages\Traits\ArticleEditTrait;
 use GIS\TraitsHelpers\Facades\BuilderActions;
+use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,7 +14,7 @@ use Livewire\WithPagination;
 
 class IndexWire extends Component
 {
-    use WithPagination, WithFileUploads, ArticleEditTrait;
+    use WithPagination, WithFileUploads, ArticleEditTrait, WireDeleteImageTrait;
 
     public string $searchTitle = "";
     public string $searchFixed = "all";

@@ -70,13 +70,7 @@
                        wire:loading.attr="disabled"
                        wire:model.lazy="cover">
                 <x-tt::form.error name="cover" />
-                @if ($coverUrl)
-                    <div class="mt-indent-half">
-                        <a href="{{ $coverUrl }}" target="_blank" class="text-primary hover:text-primary-hover">
-                            {{ __("Picture") }}
-                        </a>
-                    </div>
-                @endif
+                @include("tt::admin.delete-image-button")
             </div>
 
 {{--            <div>--}}

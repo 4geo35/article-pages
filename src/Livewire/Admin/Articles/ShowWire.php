@@ -4,13 +4,14 @@ namespace GIS\ArticlePages\Livewire\Admin\Articles;
 
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Traits\ArticleEditTrait;
+use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ShowWire extends Component
 {
-    use ArticleEditTrait, WithFileUploads;
+    use ArticleEditTrait, WithFileUploads, WireDeleteImageTrait;
 
     public ArticleModelInterface $article;
 

@@ -58,7 +58,7 @@ trait ArticleEditTrait
     {
         $this->resetFields();
         $this->articleId = $articleId;
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
 
@@ -75,14 +75,16 @@ trait ArticleEditTrait
 
     public function update(): void
     {
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
         $this->validate();
 
+        $slugHasChanged = $this->slug !== $article->slug;
+
         $article->update([
             "title" => $this->title,
-            "slug" => $this->title,
+            "slug" => $this->slug,
             "short" => $this->short,
         ]);
         $article->livewireImage($this->cover);
@@ -92,16 +94,21 @@ trait ArticleEditTrait
 
         session()->flash("success", __("Article successfully updated"));
         $this->closeData();
-        if (method_exists($this, "resetPage")) $this->resetPage();
-        if (isset($this->article)) $this->article->fresh();
-        $this->dispatch("article-updated");
+        if (method_exists($this, "resetPage")) { $this->resetPage(); }
+        if (isset($this->article)) {
+            $this->article->fresh();
+            if ($slugHasChanged) {
+                $this->redirectRoute("admin.articles.show", ["article" => $article]);
+            }
+        }
+        if (! $slugHasChanged) { $this->dispatch("article-updated"); }
     }
 
     public function showDelete(int $articleId): void
     {
         $this->resetFields();
         $this->articleId = $articleId;
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("delete", $article)) return;
 
@@ -110,7 +117,7 @@ trait ArticleEditTrait
 
     public function confirmDelete(): void
     {
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("delete", $article)) return;
 
@@ -136,7 +143,7 @@ trait ArticleEditTrait
     {
         $this->resetFields();
         $this->articleId = $articleId;
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
 
@@ -149,7 +156,7 @@ trait ArticleEditTrait
     {
         $this->resetFields();
         $this->articleId = $articleId;
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
 
@@ -165,7 +172,7 @@ trait ArticleEditTrait
 
     public function setPublish(): void
     {
-        $article = $this->findArticle();
+        $article = $this->findModel();
         if (! $article) return;
         if (! $this->checkAuth("update", $article)) return;
         $this->validate([
@@ -185,7 +192,7 @@ trait ArticleEditTrait
         $this->displayPublish = false;
     }
 
-    protected function findArticle(): ?ArticleModelInterface
+    protected function findModel(): ?ArticleModelInterface
     {
         if (isset($this->article)) return $this->article;
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
