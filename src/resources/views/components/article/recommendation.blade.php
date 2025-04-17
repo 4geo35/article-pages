@@ -4,7 +4,7 @@
     <a href="{{ $url }}" class="hover:text-primary-hover leading-tight text-xl font-semibold">
         {{ $article->title }}
     </a>
-    <div class="text-secondary mt-indent">
+    <div class="text-body/60 mt-indent">
         {{ $article->published_date }}
     </div>
 </div>

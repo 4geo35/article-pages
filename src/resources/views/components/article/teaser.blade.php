@@ -31,7 +31,7 @@
         <a href="{{ $url }}" class="text-lg leading-tight xs:text-xl xs:leading-tight font-semibold inline-block hover:text-primary-hover">
             {{ $article->title }}
         </a>
-        <div class="text-sm xs:text-base text-secondary mt-indent-half">
+        <div class="text-sm xs:text-base text-body/60 mt-indent-half">
             {{ $article->published_date }}
         </div>
     </div>
