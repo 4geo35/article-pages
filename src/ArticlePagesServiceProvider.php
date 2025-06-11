@@ -8,6 +8,7 @@ use GIS\ArticlePages\Models\ArticleBlock;
 use GIS\ArticlePages\Observers\ArticleBlockObserver;
 use GIS\ArticlePages\Observers\ArticleObserver;
 use GIS\Fileable\Traits\ExpandTemplatesTrait;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use GIS\ArticlePages\Livewire\Admin\Articles\IndexWire as ArticleIndexWire;
@@ -30,13 +31,10 @@ class ArticlePagesServiceProvider extends ServiceProvider
         $this->expandConfiguration();
 
         // Observers
-        $articleObserverClass = config("article-pages.customArticleModelObserver") ?? ArticleObserver::class;
-        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
-        $articleModelClass::observe($articleObserverClass);
+        $this->observeModels();
 
-        $blockObserverClass = config("article-pages.customArticleBlockModelObserver") ?? ArticleBlockObserver::class;
-        $blockModelClass = config("article-pages.customArticleBlockModel") ?? ArticleBlock::class;
-        $blockModelClass::observe($blockObserverClass);
+        // Policies
+        $this->setPolicies();
     }
 
     public function register(): void
@@ -56,6 +54,22 @@ class ArticlePagesServiceProvider extends ServiceProvider
 
         // Bindings
         $this->bindInterfaces();
+    }
+
+    protected function setPolicies(): void
+    {
+        Gate::policy(config("article-pages.customArticleModel") ?? Article::class, config("article-pages.articlePolicy"));
+    }
+
+    protected function observeModels(): void
+    {
+        $articleObserverClass = config("article-pages.customArticleModelObserver") ?? ArticleObserver::class;
+        $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
+        $articleModelClass::observe($articleObserverClass);
+
+        $blockObserverClass = config("article-pages.customArticleBlockModelObserver") ?? ArticleBlockObserver::class;
+        $blockModelClass = config("article-pages.customArticleBlockModel") ?? ArticleBlock::class;
+        $blockModelClass::observe($blockObserverClass);
     }
 
     protected function addLivewireComponents(): void
