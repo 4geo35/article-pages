@@ -6,6 +6,7 @@ return [
     "useBreadcrumbs" => true,
     "pageTitle" => "Статьи",
     "useH1" => true,
+    "customArticleWebController" => null,
     "customArticleWebIndexComponent" => null,
     "webBlockTypeTemplates" => [
         "text" => "ap::web.article-blocks.templates.text",
