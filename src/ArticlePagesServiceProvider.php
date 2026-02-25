@@ -21,38 +21,26 @@ class ArticlePagesServiceProvider extends ServiceProvider
     use ExpandTemplatesTrait;
     public function boot(): void
     {
-        // Views
         $this->loadViewsFrom(__DIR__ . "/resources/views", "ap");
 
-        // Livewire
-        $this->addLivewireComponents();
+        $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");
+        $this->loadRoutesFrom(__DIR__ . "/routes/web.php");
 
-        // Расширить конфигурацию
         $this->expandConfiguration();
-
-        // Observers
         $this->observeModels();
-
-        // Policies
         $this->setPolicies();
+
+        $this->addLivewireComponents();
     }
 
     public function register(): void
     {
-        // Migrations
         $this->loadMigrationsFrom(__DIR__ . "/database/migrations");
 
-        // Config
         $this->mergeConfigFrom(__DIR__ . "/config/article-pages.php", "article-pages");
 
-        // Routes
-        $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");
-        $this->loadRoutesFrom(__DIR__ . "/routes/web.php");
-
-        // Translations
         $this->loadJsonTranslationsFrom(__DIR__ . "/lang");
 
-        // Bindings
         $this->bindInterfaces();
     }
 
