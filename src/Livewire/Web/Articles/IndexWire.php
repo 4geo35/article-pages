@@ -12,13 +12,20 @@ class IndexWire extends Component
 {
     use WithPagination;
 
-    public array $searchLabel = [];
+    public mixed $searchLabel = [];
 
     protected function queryString(): array
     {
         return [
             "searchLabel" => ["as" => "label", "except" => ""],
         ];
+    }
+
+    public function mount(): void
+    {
+        if (! empty($this->searchLabel) && !is_array($this->searchLabel)) {
+            $this->searchLabel = [$this->searchLabel];
+        }
     }
 
     public function render(): View
