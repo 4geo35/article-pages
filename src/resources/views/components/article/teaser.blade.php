@@ -14,15 +14,18 @@
                 @endforeach
             </div>
         @endif
-        <a href="{{ $url }}" class="block">
+        <a href="{{ $url }}" class="block xs:h-[258px] sm:h-[194px] md:h-[254px] lg:h-[224px] xl:h-[208px] 2xl:h-[257px]">
             @if($article->image)
                 <picture>
-                    <source media="(min-width: 480px)" srcset="{{ route('thumb-img', ['template' => 'article-teaser', 'filename' => $article->image->file_name]) }}">
-                    <img src="{{ route('thumb-img', ['template' => 'mobile-article-teaser', 'filename' => $article->image->file_name]) }}" alt="">
+                    <source media="(min-width: 640px)" srcset="{{ route('thumb-img', ['template' => 'article-teaser', 'filename' => $article->image->file_name]) }}">
+                    <img
+                        class="h-full object-cover object-center"
+                        src="{{ route('thumb-img', ['template' => 'mobile-article-teaser', 'filename' => $article->image->file_name]) }}"
+                        alt="">
                 </picture>
             @else
-                <div class="flex items-center justify-center">
-                    <x-fa::ico.image class="w-auto min-h-[150px] xs:h-[162px] sm:h-[193px] md:h-[252px] lg:h-[222px] xl:h-[207px] 2xl:h-[257px] text-secondary" />
+                <div class="flex items-center justify-center h-full">
+                    <x-fa::ico.image class="w-auto h-full min-h-[150px] text-secondary" />
                 </div>
             @endif
         </a>
