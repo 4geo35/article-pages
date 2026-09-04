@@ -14,7 +14,7 @@ return [
         "gallery" => "ap::web.article-blocks.templates.gallery",
         "single_image" => "ap::web.article-blocks.templates.single-image",
     ],
-    "insideTitle" => [],
+    "insideTitle" => [], // Блоки, для которых заголовок должен быть внутри
 
     // Admin
     // Articles

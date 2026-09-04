@@ -35,11 +35,13 @@ class IndexWire extends Component
             "title" => ["nullable", "string", "max:150"],
         ];
 
-        if (in_array($this->type, config("article-pages.blockHasImage")))
-            $rules["image"] = ["nullable", "image"];
+        if (in_array($this->type, config("article-pages.blockHasImage"))) {
+            $rules["image"] = [$this->blockId ? "nullable" : "required", "image"];
+        }
 
-        if (in_array($this->type, config("article-pages.blockHasDescription")))
+        if (in_array($this->type, config("article-pages.blockHasDescription"))) {
             $rules["description"] = ["required", "string"];
+        }
 
         return $rules;
     }

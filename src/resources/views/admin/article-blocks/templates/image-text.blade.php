@@ -1,6 +1,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col w-full md:w-1/3">
+            @if ($item->image)
             <a href="{{ route("thumb-img", ["template" => "original", "filename" => $item->image->file_name]) }}"
                target="_blank" class="block mr-indent mb-indent basis-auto shrink-0">
                 <picture>
@@ -8,6 +9,7 @@
                     <img src="{{ route('thumb-img', ['template' => 'image-text-block-small', 'filename' => $item->image->file_name]) }}" alt="" class="mb-indent-half">
                 </picture>
             </a>
+            @endif
         </div>
         <div class="col w-full md:w-2/3">
             <div class="prose max-w-none">{!! $item->markdown !!}</div>
