@@ -6,6 +6,7 @@ return [
     "useBreadcrumbs" => true,
     "pageTitle" => "Статьи",
     "useH1" => true,
+    "disableCoverImage" => false,
     "customArticleWebController" => null,
     "customArticleWebIndexComponent" => null,
     "webBlockTypeTemplates" => [
