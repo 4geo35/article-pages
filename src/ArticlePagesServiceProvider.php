@@ -2,6 +2,7 @@
 
 namespace GIS\ArticlePages;
 
+use GIS\ArticlePages\Console\Commands\ClearArticleImages;
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Models\Article;
 use GIS\ArticlePages\Models\ArticleBlock;
@@ -21,6 +22,12 @@ class ArticlePagesServiceProvider extends ServiceProvider
     use ExpandTemplatesTrait;
     public function boot(): void
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ClearArticleImages::class
+            ]);
+        }
+
         $this->loadViewsFrom(__DIR__ . "/resources/views", "ap");
 
         $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");

@@ -13,3 +13,9 @@
 Установить lightbox `npm install fslightbox`, добавить в `app.js`:
 
     import "fslightbox"
+
+#### Commands
+
+    php artisan article:clear-images {--all} {--cover} {--blocks}
+
+Команда удаляет изображения у статей. `cover` очистит только обложку статьи, `blocks` очистит изображения в блоках (если это текст + изображение, удалит изображение и изменит тип блока), `all` очистит все
