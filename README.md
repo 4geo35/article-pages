@@ -18,8 +18,35 @@
 
     import "fslightbox"
 
+#### Views
+
+Сокращение для представлений: `ap`  
+Меню для панели администрирования: `<x-ap::menu-item/>`  
+
+#### Config
+
+Название файла: `article-pages`
+
+- `pagePrefix` => `articles`: адрес страницы
+- `useBreadcrumbs` => `true`: выводить хлебные крошки на странице
+- `pageTitle` => `Статьи`: заголовок страницы
+- `useH1` => `true`: выводить h1
+- `disableCoverImage` => `false`: убирает изображение из тизера
+
 #### Commands
 
     php artisan article:clear-images {--all} {--cover} {--blocks}
 
 Команда удаляет изображения у статей. `cover` очистит только обложку статьи, `blocks` очистит изображения в блоках (если это текст + изображение, удалит изображение и изменит тип блока), `all` очистит все
+
+#### Routes
+
+Файл `admin.php`, `middleware(["web", "auth", "app-management"])`
+
+- `admin.articles.index` => `admin/articles`
+- `admin.articles.show` => `admin/articles/{article}`
+
+Файл `web.php`, `middleware(["web"])`, `prefix(config("article-pages.pagePrefix"))`
+
+- `web.articles.index` => `{prefix}`
+- `web.articles.show` => `{prefix}/{article}`

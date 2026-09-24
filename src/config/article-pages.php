@@ -1,14 +1,34 @@
 <?php
 
 return [
-    // Web
+    // Settings
     "pagePrefix" => "articles",
     "useBreadcrumbs" => true,
     "pageTitle" => "Статьи",
     "useH1" => true,
     "disableCoverImage" => false,
+
+    // Models
+    "customArticleModel" => null,
+    "customArticleModelObserver" => null,
+
+    "customArticleBlockModel" => null,
+    "customArticleBlockModelObserver" => null,
+
+    // Controllers
     "customArticleWebController" => null,
+
+    "customArticleAdminController" => null,
+
+    // Wire Components
+    "customArticleIndexComponent" => null,
+    "customArticleShowComponent" => null,
+
+    "customArticleBlockIndexComponent" => null,
+
     "customArticleWebIndexComponent" => null,
+
+    // Blocks
     "webBlockTypeTemplates" => [
         "text" => "ap::web.article-blocks.templates.text",
         "image_text" => "ap::web.article-blocks.templates.image-text",
@@ -17,22 +37,11 @@ return [
     ],
     "insideTitle" => [], // Блоки, для которых заголовок должен быть внутри
 
-    // Admin
-    // Articles
-    "customArticleModel" => null,
-    "customArticleModelObserver" => null,
-    "customArticleAdminController" => null,
-    "customArticleIndexComponent" => null,
-    "customArticleShowComponent" => null,
-    // Blocks
-    "customArticleBlockModel" => null,
-    "customArticleBlockModelObserver" => null,
-    "customArticleBlockIndexComponent" => null,
     "blockTypesList" => [
-        "text" => "Text",
-        "image_text" => "Text + Image",
-        "gallery" => "Image gallery",
-        "single_image" => "Image",
+        "text" => env("ARTICLE_BLOCK_TEXT_TITLE", "Text"),
+        "image_text" => env("ARTICLE_BLOCK_IMAGE_TEXT_TITLE", "Text + Image"),
+        "gallery" => env("ARTICLE_BLOCK_IMAGE_GALLERY_TITLE", "Image gallery"),
+        "single_image" => env("ARTICLE_BLOCK_IMAGE_SINGLE_TITLE", "Image"),
     ],
     "blockHasImage" => ["image_text", "single_image"],
     "blockHasDescription" => ["text", "image_text"],
