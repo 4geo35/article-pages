@@ -23,6 +23,18 @@
 Сокращение для представлений: `ap`  
 Меню для панели администрирования: `<x-ap::menu-item/>`  
 
+#### Livewire Components
+
+Web
+
+- `ap-web-article-index`: список тизеров статей
+
+Admin
+
+- `ap-article-index`: таблица в админке
+- `ap-article-show`: страница просмотра в админке
+- `ap-article-block-index`: управление блоками статьи
+
 #### Config
 
 Название файла: `article-pages`
