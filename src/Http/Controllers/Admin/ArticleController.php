@@ -5,11 +5,15 @@ namespace GIS\ArticlePages\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use GIS\ArticlePages\Interfaces\ArticleModelInterface;
 use GIS\ArticlePages\Models\Article;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function index(): View
     {
         $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
@@ -17,6 +21,9 @@ class ArticleController extends Controller
         return view("ap::admin.articles.index");
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function show(ArticleModelInterface $article): View
     {
         Gate::authorize("viewAny", $article::class);

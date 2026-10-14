@@ -210,7 +210,7 @@ trait ArticleEditTrait
         $this->reset(["title", "slug", "short", "publishedAt", "cover", "coverUrl", "articleId", "labelList", "labels"]);
     }
 
-    protected function checkAuth(string $action, ArticleModelInterface $article = null): bool
+    protected function checkAuth(string $action, ?ArticleModelInterface $article = null): bool
     {
         try {
             $articleModelClass = config("article-pages.customArticleModel") ?? Article::class;
